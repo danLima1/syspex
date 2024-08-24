@@ -231,70 +231,74 @@
 				right: 0;
 				border-radius:10px 0 0 10px;
 			}
-            .slideBox {
-    position: relative;
-    width: 100%; 
-    height: 160px; 
-    overflow: hidden;
-}
 
 .slideBox {
-            position: relative;
-            width: 100%;
-            height: 160px;
-            overflow: hidden;
-        }
+        position: relative;
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+    }
 
-        .slides {
-            display: flex;
-            width: 300%;  /* Largura ajustada para suportar 3 slides */
-            height: 100%;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            transition: transform 1s ease-in-out;
-        }
+    .slides {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        .slides li {
-            flex: 1 0 100%; /* Cada slide ocupa 100% do contêiner */
-            width: 100%;
-        }
+    .slides li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none; /* Esconde todos os slides inicialmente */
+        justify-content: center;
+        align-items: center;
+    }
 
-        .slides li img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;  /* Assegura que a imagem seja completamente visível */
-        }
+    .slides li.active {
+        display: flex; /* Apenas o slide ativo será exibido */
+    }
 
-        .hd ul {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
+    .slides li img {
+    width: calc(100% - 30px); /* 100% da largura menos as margens */
+    height: 100%; /* Define a altura para ocupar todo o espaço, mesmo que distorça */
+    margin: 0 15px; /* Margem de 15px nas laterais */
+    object-fit: fill;  /* Garante que a imagem preencha todo o espaço, mesmo que distorça */
+    border-radius: 15px;
+}
+    .hd ul {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
 
-        .hd ul li {
-            display: inline-block;
-            background-color: #ccc;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            margin: 0 5px;
-        }
+    .hd ul li {
+        display: inline-block;
+        background-color: #ccc;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+    }
 
-        .hd ul li.on {
-            background-color: #00A398;
-        }
+    .hd ul li.on {
+        background-color: #00A398;
+    }
     </style>
 </head>
 <body>
-  <div class="page-content">
-       <img src="https://syspex.cyou/static/home/img/lg08.png" width="100%" style="transform: scale(0.8);margin-top:8px">
-      </div>
-      <div class="page-content">
+    <div class="page-content">
+        <img src="https://syspex.cyou/static/home/img/lg08.png" width="100%" style="transform: scale(0.8);margin-top:8px">
+    </div>
+    <div class="page-content">
         <div id="slideBox" class="slideBox">
             <div class="bd">
                 <ul class="slides">
-                    <li><img src="https://syspex.cyou/uploads/image/20240823/a0ed413ec56a1b1d169648bfdb0beaec.jpg" alt="banner1"></li>
+                    <li class="active"><img src="https://syspex.cyou/uploads/image/20240823/a0ed413ec56a1b1d169648bfdb0beaec.jpg" alt="banner1"></li>
                     <li><img src="https://syspex.cyou/uploads/image/20240823/b35a4fe1c8fcec612f22b1ec5e0e2a88.jpg" alt="banner2"></li>
                     <li><img src="https://syspex.cyou/uploads/image/20240823/21ca5b24fc8c0ca5d615a7ef1c3ea22f.jpg" alt="banner3"></li>
                 </ul>
@@ -311,23 +315,26 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const slides = document.querySelector('.slides');
+            const slides = document.querySelectorAll('.slides li');
             const indicators = document.querySelectorAll('.hd ul li');
             let currentSlide = 0;
             const totalSlides = indicators.length;
 
             function showNextSlide() {
-                // Calcula a posição do próximo slide
-                currentSlide = (currentSlide + 1) % totalSlides;
-                const offset = -currentSlide * 100;
-                slides.style.transform = `translateX(${offset}%)`;
+                // Esconde o slide atual
+                slides[currentSlide].classList.remove('active');
+                indicators[currentSlide].classList.remove('on');
 
-                // Atualiza os indicadores para refletir o slide atual
-                indicators.forEach(indicator => indicator.classList.remove('on'));
+                // Calcula o próximo slide
+                currentSlide = (currentSlide + 1) % totalSlides;
+
+                // Exibe o próximo slide
+                slides[currentSlide].classList.add('active');
                 indicators[currentSlide].classList.add('on');
             }
 
             // Inicializa com o primeiro slide ativo
+            slides[currentSlide].classList.add('active');
             indicators[currentSlide].classList.add('on');
 
             // Muda o slide automaticamente a cada 3 segundos
