@@ -7,28 +7,30 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="/css/index.css">
-    <script type="text/javascript" src="/static/home/js/layer.js"></script>
-    <link href="https://syspex.cyou/static/home/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
     <script>
-        function checkAuthentication() {
-            fetch('http://127.0.0.1:5000/is_authenticated', {
-                method: 'GET',
-                credentials: 'include' 
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.authenticated) {
-                    window.location.href = "/teste.html"; 
-                } else {
-                    document.body.style.display = 'block'; 
-                }
-            })
-            .catch(error => console.error('Erro ao verificar autenticação:', error));
+       const API_URL = 'http://127.0.0.1:5000/is_authenticated'; // Alterar para o URL de produção, se necessário
+
+function checkAuthentication() {
+    fetch(API_URL, {
+        method: 'GET',
+        credentials: 'include'  // Inclui os cookies na requisição
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.authenticated) {
+            window.location.href = "/teste.html";  // Redireciona para a página de login se não autenticado
+        } else {
+            document.body.style.display = 'block';  // Mostra o conteúdo da página
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.display = 'none'; 
-            checkAuthentication();
-        });
+    })
+    .catch(error => console.error('Erro ao verificar autenticação:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.display = 'none'; 
+    checkAuthentication();
+});
+
     </script>
 </head>
 <body>
