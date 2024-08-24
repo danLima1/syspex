@@ -8,29 +8,39 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="/css/index.css">
     <script>
-             const API_URL = 'http://127.0.0.1:5000/is_authenticated'; 
-
-function checkAuthentication() {
-    fetch(API_URL, {
-        method: 'GET',
-        credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (!data.authenticated) {
-            window.location.href = "/teste.html";  
-        } else {
-            document.body.style.display = 'block'; 
+        // Função para verificar se o usuário está autenticado (tem um token válido)
+        function isAuthenticated() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                return false;
+            }
+            try {
+                // Tenta decodificar o token para verificar se é válido (opcional, mas recomendado)
+                jwt.decode(token, 'sua_chave_secreta_para_jwt'); // Use a mesma chave secreta do backend!
+                return true; 
+            } catch (error) {
+                console.error('Token JWT inválido:', error);
+                return false;
+            }
         }
-    })
-    .catch(error => console.error('Erro ao verificar autenticação:', error));
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.display = 'none'; 
-    checkAuthentication();
-});
-
+    
+    
+        // Função para redirecionar o usuário com base na autenticação
+        function checkAuthentication() {
+            if (!isAuthenticated()) {
+                window.location.href = "/teste.html";  
+            } else {
+                document.body.style.display = 'block'; 
+            }
+        }
+    
+    
+        // Executa a verificação quando o documento estiver pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'none'; 
+            checkAuthentication();
+        });
+    
     </script>
 </head>
 <body>
