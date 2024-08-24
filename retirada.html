@@ -1,0 +1,273 @@
+<html class="pixel-ratio-3 retina android android-5 android-5-0 watch-active-state"><head>
+    <meta -equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta -equiv="pragma" content="no-cache">
+    <meta -equiv="cache-control" content="no-cache">
+    <meta -equiv="expires" content="0">
+    <title>Syspex</title>
+    <link rel="stylesheet" href="/static/home/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="/static/home/js/jquery-1.11.3.min.js"></script><style type="text/css" id="operaUserStyle"></style>
+    <script type="text/javascript" src="/static/home/layui/layui.js"></script>
+    <style>
+        .baocuss a {
+            display: block;
+        }
+    </style>
+<link id="layuicss-layer" rel="stylesheet" href="https://syspex.cyou/static/home/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all"></head>
+<body>
+<div class="views">
+    <div class="navbar theme-white" style="background:#00A398">
+<div class="navbar-inner">
+    <div class="left">
+        <a href="/meusdados.html" class="external link">
+            <i class="icon iconfont icon-angleleft"></i>Voltar        </a>
+    </div>
+    <div class="center" style="left: -24px;">Conta para Retirada</div>
+    <div class="right"></div>
+</div>
+
+    </div>
+    <div class="page navbar-fixed">
+        <div class="page-content defaultbg">
+            <form style="font-size:14px">
+                <div class="list-block">
+                    <ul>
+                           <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+<div class="item-title label">Nome do sacador</div>
+<div class="item-input">
+    <input type="text" name="name" value="">
+</div>
+
+                                </div>
+                                
+                            </div>
+                        </li>
+                        
+                           <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Método de retirada</div>
+                                    <div class="item-input">
+                                        <select id="bankCode" name="bankCode">
+                                            <option value="PHONE">PHONE</option>
+                                            <option value="CPF">CHAVE</option>
+			                                
+			                                <option value="EMAIL">E-MAIL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+<div class="item-title label" id="contactMethodLabel">PHONE</div>
+<div class="item-input">
+    <input type="text" name="account" value="">
+</div>
+
+                                </div>
+                                
+                            </div>
+                        </li>
+                     
+
+<li>
+    <div class="item-content">
+        <div class="item-inner">
+            <div class="item-title label">CPF</div>
+            <div class="item-input">
+             <input maxlength="11" type="number" name="IFSC" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" value="">
+            </div>
+        </div>
+    </div>
+</li>
+
+                    </ul>
+                </div>
+                <div class="baocuss" style="background:#00A398">
+                    <a href="javascript:void(0);" class="external submitbtn">Salvar</a>
+
+                </div>
+                <br> <br> <br> 
+               
+            </form>
+        </div>
+    </div>
+</div>
+<div class="kefu">
+    <a href="https://syspex.cyou/user/service"><img src="/static/home/img/kf2.png" alt=""></a>
+</div><script type="text/javascript">
+
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form,
+            layer = layui.layer;
+    });
+    $('#bankname_cont').hide();
+       $('#bankCode').on('change', function() {
+            var selectedValue = $(this).val(); //获取被选中的值
+      
+            if (selectedValue === 'IDPT0001'){
+                $('#bankname_cont').show();
+            } else{
+                $('#bankname_cont').hide();
+            }
+   });
+    
+    // sendsms
+    var _submitCode = true;
+
+    function sendCode() {
+        if (_submitCode == true) {
+            _submitCode = false;
+            var loading = layer.load(1, {shade: [0.5, '#393D49']});
+        } else {
+            return false;
+        }
+        $('#count_down').attr("disabled");
+        var mobile = $('input[name="mobile"]').val();
+        var _token = "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG";
+        var data = {
+            mobile: mobile,
+            type: 0,
+            _token: _token
+        };
+        $.post("https://syspex.cyou/user/account", data, function (result) {
+            layer.close(loading);
+            if (result.code == 200) {
+                layer.msg('Sending Succeed...', {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+                    intAs = 60; // maxtime
+                    jsInnerTimeout('count_down', intAs);
+                });
+            } else {
+                layer.msg(result.msg, {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+                    _submitCode = true;
+                });
+                return false;
+            }
+        }, "json");
+    }
+
+
+    function jsInnerTimeout(id, intAs) {
+        var codeObj = $("#" + id);
+        intAs--;
+        if (intAs < 1) {
+            codeObj.text("Send");
+            _submitCode = true;
+            return true;
+        }
+        codeObj.text(intAs + 's');
+        setTimeout("jsInnerTimeout('" + id + "'," + intAs + ")", 1000);
+    }
+
+
+    var _submit = true;
+    $(".submitbtn").click(function () {
+        if (_submit == true) {
+            _submit = false;
+            var loading = layer.load(2, {shade: [0.5, '#00A398']});
+        } else {
+            return false;
+        }
+        var name = $("input[name='name']").val();
+        var bankCode = $("#bankCode").val();
+        var account = $("input[name='account']").val();
+        var IFSC = $("input[name='IFSC']").val();
+        var _token = "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG";
+ if (name.length == 0) {
+    layer.close(loading);
+    layer.msg('Insira as informações corretas', {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+        _submit = true;
+    });
+    return false;
+}
+if (bankCode.length == 0) {
+    layer.close(loading);
+    layer.msg('Por favor, selecione o código do banco...', {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+        _submit = true;
+    });
+    return false;
+}
+if (!isIFSC(IFSC)) {
+    layer.close(loading);
+    layer.msg('Insira as informações corretas', {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+        _submit = true;
+    });
+    return false;
+}
+        var data = {
+            name: name,
+            bankCode: bankCode,
+            account: account,
+
+            IFSC: IFSC,
+ 
+            _token: _token
+        };
+        $.post(
+            "https://syspex.cyou/user/account",
+            data,
+            function (result) {
+                layer.close(loading);
+                if (result.code == 201) {
+                    layer.msg('Login Invalid...', {icon: 16, time: 1000, shade: [0.5, '#393D49']}, function () {
+                        location.href = "https://syspex.cyou/login/index?redirect=https%3A%2F%2Fsyspex.cyou%2Fuser%2Faccount";
+                    });
+                    return false;
+                }
+                if (result.code == 200) {
+                    layer.msg('Successed...', {icon: 16, time: 500, shade: [0.5, '#393D49']}, function () {
+                        location.href = "https://syspex.cyou/user/index";
+                    });
+                } else {
+                    layer.msg(result.msg, {icon: 16, time: 2000, shade: [0.5, '#393D49']}, function () {
+                        _submit = true;
+                    });
+                    return false;
+                }
+            }, "json");
+    });
+
+    function isnumber(obj){
+        if(obj.length < 5)
+        {
+            return false;
+        }
+        var reg = /^[0-9]*$/;
+        return reg.test(obj);
+    
+    };
+
+    function isen(obj)
+    {
+        var reg = /^[a-zA-Z\s]+$/;
+        return reg.test(obj);
+    }
+    function isIFSC(obj){
+        if(obj.length != 11)
+        {
+            return false;
+        }
+        return true;
+    }
+    
+     const bankCodeSelect = document.getElementById('bankCode');
+        const contactMethodLabel = document.getElementById('contactMethodLabel');
+
+        bankCodeSelect.addEventListener('change', function() {
+            const selectedValue = bankCodeSelect.options[bankCodeSelect.selectedIndex].text;
+            contactMethodLabel.textContent = selectedValue;
+            contactMethodLabel.classList.add('selected-label');
+        });
+</script>
+
+</body></html>
