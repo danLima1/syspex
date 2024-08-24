@@ -16,13 +16,7 @@
                 credentials: 'include' 
             })
             .then(response => response.json())
-            .then(data => {
-                if (!data.authenticated) {
-                    window.location.href = "/"; 
-                } else {
-                    document.body.style.display = 'block'; 
-                }
-            })
+       
             .catch(error => console.error('Erro ao verificar autenticação:', error));
         }
         document.addEventListener('DOMContentLoaded', function() {
