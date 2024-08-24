@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="/css/index.css">
     <script>
-       const API_URL = 'http://127.0.0.1:5000/is_authenticated'; // Alterar para o URL de produção, se necessário
+             const API_URL = 'http://127.0.0.1:5000/is_authenticated'; 
 
 function checkAuthentication() {
     fetch(API_URL, {
         method: 'GET',
-        credentials: 'include'  // Inclui os cookies na requisição
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
         if (!data.authenticated) {
-            window.location.href = "/teste.html";  // Redireciona para a página de login se não autenticado
+            window.location.href = "/teste.html";  
         } else {
-            document.body.style.display = 'block';  // Mostra o conteúdo da página
+            document.body.style.display = 'block'; 
         }
     })
     .catch(error => console.error('Erro ao verificar autenticação:', error));
