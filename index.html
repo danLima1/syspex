@@ -1,16 +1,14 @@
-<html class="pixel-ratio-3 retina android android-5 android-5-0 watch-active-state"><head>
-    <meta -equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta -equiv="pragma" content="no-cache">
-    <meta -equiv="cache-control" content="no-cache">
-    <meta -equiv="expires" content="0">
     <title>Syspex</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="/css/index.css">
-    <script type="text/javascript" src="/static/home/js/layer.js"></script><link href="https://syspex.cyou/static/home/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script type="text/javascript" src="/static/home/js/layer.js"></script>
+    <link href="https://syspex.cyou/static/home/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
     <script>
         // Função para verificar a autenticação do usuário
         function checkAuthentication() {
@@ -23,13 +21,18 @@
                 if (!data.authenticated) {
                     // Se o usuário não estiver autenticado, redirecione para a página de login
                     window.location.href = "/teste.html";
+                } else {
+                    document.body.style.display = 'block'; // Exibe o conteúdo após confirmação de autenticação
                 }
             })
             .catch(error => console.error('Erro ao verificar autenticação:', error));
         }
     
-        // Chama a função para verificar a autenticação o mais rápido possível
-        checkAuthentication();
+        // Oculta o corpo até que a autenticação seja verificada
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'none';
+            checkAuthentication();
+        });
     </script>
 </head>
 <body>
@@ -63,58 +66,49 @@
             const totalSlides = indicators.length;
 
             function showNextSlide() {
-                // Esconde o slide atual
                 slides[currentSlide].classList.remove('active');
                 indicators[currentSlide].classList.remove('on');
-
-                // Calcula o próximo slide
                 currentSlide = (currentSlide + 1) % totalSlides;
-
-                // Exibe o próximo slide
                 slides[currentSlide].classList.add('active');
                 indicators[currentSlide].classList.add('on');
             }
 
-            // Inicializa com o primeiro slide ativo
             slides[currentSlide].classList.add('active');
             indicators[currentSlide].classList.add('on');
-
-            // Muda o slide automaticamente a cada 3 segundos
             setInterval(showNextSlide, 3000);
         });
     </script>
+
 <div class="page-index-nav">
     <div class="page-index-nav-ul">
- <ul>
-    <li>
-        <a href="javascript:void(0);" onclick="sign_in()">
-            <img src="https://syspex.cyou/static/home/img/index_ico004.png" style="width:3rem;height:3rem;">
-           <p>Entrar</p>
-        </a>
-    </li>
-    <li>
-        <a href="#">
-            <img src="https://syspex.cyou/static/home/img/index_ico002.png" style="width:3rem;height:3rem">
-            <p>Recarregar</p>
-        </a>
-    </li>
-    <li>
-        <a href="#">
-            <img src="https://syspex.cyou/static/home/img/index_ico003.png" style="width:3rem;height:3rem">
-            <p>Equipe</p>
-        </a>
-    </li>
-    <li>
-        <a href="#">
-            <img src="https://syspex.cyou/static/home/img/index_ico005.png" style="width:3rem;height:3rem">
-            <p>Baixar</p>
-        </a>
-    </li>
-</ul>
-
+        <ul>
+            <li>
+                <a href="javascript:void(0);" onclick="sign_in()">
+                    <img src="https://syspex.cyou/static/home/img/index_ico004.png" style="width:3rem;height:3rem;">
+                    <p>Entrar</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://syspex.cyou/static/home/img/index_ico002.png" style="width:3rem;height:3rem">
+                    <p>Recarregar</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://syspex.cyou/static/home/img/index_ico003.png" style="width:3rem;height:3rem">
+                    <p>Equipe</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://syspex.cyou/static/home/img/index_ico005.png" style="width:3rem;height:3rem">
+                    <p>Baixar</p>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
-
 <div class="earnings_list">
     	<div class="earnings_item">
         <div class="mycount">Cota 0 / 5</div>
