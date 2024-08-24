@@ -35,7 +35,7 @@
         async function checkAuthentication() {
             const isAuth = await isAuthenticated();
             if (!isAuth) {
-                window.location.href = "/teste.html";  // Redireciona para a página de login se não autenticado
+                window.location.href = "/";  // Redireciona para a página de login se não autenticado
             } else {
                 document.body.style.display = 'block';  // Exibe o conteúdo se o usuário estiver autenticado
             }
