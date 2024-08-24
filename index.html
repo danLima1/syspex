@@ -15,6 +15,26 @@
     <script type="text/javascript" src="/static/home/js/TouchSlide.1.1.js"></script><style type="text/css" id="operaUserStyle"></style>
     <script type="text/javascript" src="/static/home/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/static/home/js/layer.js"></script><link href="https://syspex.cyou/static/home/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script>
+        // Função para verificar a autenticação do usuário
+        function checkAuthentication() {
+            fetch('http://127.0.0.1:5000/is_authenticated', {
+                method: 'GET',
+                credentials: 'include' // Inclui cookies na requisição
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.authenticated) {
+                    // Se o usuário não estiver autenticado, redirecione para a página de login
+                    window.location.href = "/teste.html";
+                }
+            })
+            .catch(error => console.error('Erro ao verificar autenticação:', error));
+        }
+    
+        // Chama a função para verificar a autenticação o mais rápido possível
+        checkAuthentication();
+    </script>
     <style type="text/css">
         * {
             margin: 0;
@@ -722,26 +742,5 @@
     </div>
 
 </footer>
-<script>
-    // Função para verificar a autenticação do usuário
-    function checkAuthentication() {
-        fetch('http://127.0.0.1:5000/is_authenticated', {
-            method: 'GET',
-            credentials: 'include' // Inclui cookies na requisição
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.authenticated) {
-                // Se o usuário não estiver autenticado, redirecione para a página de login
-                window.location.href = "/teste.html";
-            }
-        })
-        .catch(error => console.error('Erro ao verificar autenticação:', error));
-    }
 
-    // Chama a função para verificar a autenticação ao carregar a página
-    document.addEventListener('DOMContentLoaded', function() {
-        checkAuthentication();
-    });
-</script>
 </body></html>
