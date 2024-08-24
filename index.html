@@ -8,40 +8,46 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="/css/index.css">
     <script>
-        // Função para verificar se o usuário está autenticado (tem um token válido)
-        function isAuthenticated() {
+        // Função para verificar a autenticação com o backend
+        async function isAuthenticated() {
             const token = localStorage.getItem('token');
             if (!token) {
-                return false;
+                return false;  // Se não houver token, o usuário não está autenticado
             }
+    
+            // Envia o token ao backend para verificar a autenticidade
             try {
-                // Tenta decodificar o token para verificar se é válido (opcional, mas recomendado)
-                jwt.decode(token, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE3MjQ1MzU4NzZ9.1qgmo3KAAaZFX5VIbg32ziYkHmS0K-fyOkZfhVP2_X0'); // Use a mesma chave secreta do backend!
-                return true; 
+                const response = await fetch('http://127.0.0.1:5000/is_authenticated', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                const data = await response.json();
+                return data.authenticated;  // Retorna true se o usuário estiver autenticado
             } catch (error) {
-                console.error('Token JWT inválido:', error);
+                console.error('Erro ao verificar a autenticação:', error);
                 return false;
             }
         }
-    
     
         // Função para redirecionar o usuário com base na autenticação
-        function checkAuthentication() {
-            if (!isAuthenticated()) {
-                window.location.href = "/teste.html";  
+        async function checkAuthentication() {
+            const isAuth = await isAuthenticated();
+            if (!isAuth) {
+                window.location.href = "/teste.html";  // Redireciona para a página de login se não autenticado
             } else {
-                document.body.style.display = 'block'; 
+                document.body.style.display = 'block';  // Exibe o conteúdo se o usuário estiver autenticado
             }
         }
-    
     
         // Executa a verificação quando o documento estiver pronto
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.display = 'none'; 
-            checkAuthentication();
+            document.body.style.display = 'none';  // Oculta o conteúdo inicialmente
+            checkAuthentication();  // Verifica a autenticação
         });
-    
     </script>
+    
 </head>
 <body>
     <div class="page-content">
