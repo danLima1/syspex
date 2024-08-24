@@ -16,7 +16,7 @@
             }
             try {
                 // Tenta decodificar o token para verificar se é válido (opcional, mas recomendado)
-                jwt.decode(token, 'sua_chave_secreta_para_jwt'); // Use a mesma chave secreta do backend!
+                jwt.decode(token, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE3MjQ1MzU4NzZ9.1qgmo3KAAaZFX5VIbg32ziYkHmS0K-fyOkZfhVP2_X0'); // Use a mesma chave secreta do backend!
                 return true; 
             } catch (error) {
                 console.error('Token JWT inválido:', error);
