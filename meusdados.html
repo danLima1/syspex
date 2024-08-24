@@ -144,25 +144,38 @@
     </style>
 </head>
 <body style="background: #f5f5f5;">
-<div class="wa-index-top" style="background: white;">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin: 15px 30px 0 30px">
-        <div style="display:flex">
-            <img style="width:60px;height:60px;border: 2px solid #00A398; border-radius: 50%;" src="/static/home/img/lg09.png">
-            <div style="padding:20px">
-                <p style="font-size:10px">
-                     </p><h2 style="font-size: 1.2rem;color: #00A398;">EM PRODUCAO</h2>
+    <div class="wa-index-top" style="background: white;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin: 15px 30px 0 30px">
+            <div style="display:flex">
+                <img style="width:60px;height:60px;border: 2px solid #00A398; border-radius: 50%;" src="/static/home/img/lg09.png">
+                <div style="padding:20px">
+                    <p style="font-size:10px"></p>
+                    <h2 id="user-mobile" style="font-size: 1.2rem;color: #00A398;">EM PRODUCAO</h2>
+                </div>
+            </div>
+            <div style="padding:10px 0px;">
+                <h2 style="font-size: 1.2rem;color: #00A398;">R$ 0</h2>
+                <p class="wa-index-user-sj">Meu saldo</p>
+                <span></span>
             </div>
         </div>
-        <div style="padding:10px 0px;">
-            
-            <h2 style="font-size: 1.2rem;color: #00A398;">R$ 0</h2>
-            <p class="wa-index-user-sj">Meu saldo</p>
-            <span></span>
-        </div>
-        
     </div>
     
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://127.0.0.1:5000/get_user_mobile', {
+                method: 'GET',
+                credentials: 'include' // Inclui cookies na requisição
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.mobile) {
+                    document.getElementById('user-mobile').textContent = data.mobile;
+                }
+            })
+            .catch(error => console.error('Erro ao buscar o número do celular:', error));
+        });
+    </script>
 
 <div class="wa-index-center-rech">
     <h2>Recarregar e Retirar</h2>
@@ -256,98 +269,5 @@
 }
 </style>
 <footer>
-     <div class="foot_bo">
-        <a href="/index.html">
-            <img src="/static/home/img/no1.png">
-            <p>Início</p>
-        </a>
-    </div>
-
-    <div class="foot_bo">
-        <a href="#">
-            <img src="/static/home/img/no2.png">
-            <p>Ganhos</p>
-        </a>
-    </div>
-
-    <div class="foot_bo">
-        <a href="/compartilhar/compartilhar.html">
-            <img src="/static/home/img/no3.png">
-            <p>Compartilhar</p>
-        </a>
-    </div>
-    <div class="foot_bo">
-        <a href="/index.html">
-            <img src="/static/home/img/ye4.png">
-            <p class="xz" style="color: #00A398;">Meu</p>
-        </a>
-    </div>
-
-</footer><script type="text/javascript">
-    function showmsg()
-    {
-        var count = 0;
-        if(count > 0)
-        {
-            layer.open({
-               content: 'Nova Mensagem Precisa olhar??'
-
-                ,btn: ['Yes', 'No']
-                ,yes: function(index){
-                window.location.href= "https://syspex.cyou/user/message";
-                layer.close(index);
-                }
-            });
-        }
-    }
-    showmsg();
-
-    var btn = true;
-    function getIncome(type,obj)
-    {
-        if (btn == true) {
-            btn = false;
-            var loading = layer.open({
-                type: 2,
-                shadeClose: false,
-                content: 'loading'
-              });
-        } else {
-            return false;
-        }
-
-        var data = {
-            _token: "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG",
-            type:type
-        };
-        $.ajax({
-            type: 'POST',
-            url: "https://syspex.cyou/user/index",
-            data: data,
-            dataType: 'json',
-            async : true,
-            success: function(result){
-                if(result.code == 200)
-                {
-                    layer.close(loading);
-                    if(type == 1){
-                        $(".deviceIncome").html("R$ " + result.Income.deviceIncome);
-                        $(obj).attr('href',"/user/income");
-                        $(obj).attr('onclick',"");
-                        $(obj).parents().unbind();
-                    }
-                    else{
-                        $(".promotionIncome").html("R$ " + result.Income.promotionIncome);
-                        $(obj).attr('href',"/user/cash");
-                        $(obj).attr('onclick',"");
-                        $(obj).parents().unbind();
-                    }
-                    btn = true;
-                }
-            }
-        });
-    }
-
-</script>
 
 </body></html>

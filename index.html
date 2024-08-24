@@ -265,9 +265,9 @@
 
     .slides li img {
     width: calc(100% - 30px); /* 100% da largura menos as margens */
-    height: 100%; /* Define a altura para ocupar todo o espaço, mesmo que distorça */
-    margin: 0 15px; /* Margem de 15px nas laterais */
-    object-fit: fill;  /* Garante que a imagem preencha todo o espaço, mesmo que distorça */
+    height: 100%; 
+    margin: 0 15px; 
+    object-fit: fill; 
     border-radius: 15px;
 }
     .hd ul {
@@ -721,208 +721,27 @@
         </a>
     </div>
 
-</footer><script type="text/javascript">
-    TouchSlide({
-        slideCell: "#slideBox",
-        titCell: "#slideBox .hd ul",
-        mainCell: "#slideBox .bd ul",
-        effect: "leftLoop",
-        autoPage: true,
-        autoPlay: true,
-        interTime: 3000
-    });
-    function disclaimer() {
-
-            var data = {_token: "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG"};
-            $.post('/login/disclaimer', data, function (result) {
-                if (result.code == 200) {
-                     layer.open({
-                        content: "<style>.layui-m-layercont{padding: 20px;}</style><h2>"+ result.data.title+"</h2><div class='note_msg'>"+ result.data.content +"</div>"
-
-                        ,btn: 'OK'
-                     });
-                     window.sessionStorage.setItem("node",result.data.title);
-                }
-                return false;
-            }, "json");
-        //}
+</footer>
+<script>
+    // Função para verificar a autenticação do usuário
+    function checkAuthentication() {
+        fetch('http://127.0.0.1:5000/is_authenticated', {
+            method: 'GET',
+            credentials: 'include' // Inclui cookies na requisição
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.authenticated) {
+                // Se o usuário não estiver autenticado, redirecione para a página de login
+                window.location.href = "/login.html";
+            }
+        })
+        .catch(error => console.error('Erro ao verificar autenticação:', error));
     }
 
-    disclaimer();
-    
-    var _submit = true;
-    
-    function Invest(id,type) {
-        if(type == 1){
-                layer.open({
-        content: 'Confirmar a compra deste produto?'
-        ,btn: ['SIM' , 'NÃO']
-        ,yes: function(index){
-            layer.close(index);
-            if (_submit == true) {
-                _submit = false;
-                var loading = layer.open({
-                    type: 2
-                    ,content: 'loading...'
-                });
-            } else {
-                return false;
-            }
-            var _token = "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG";
-            var data = {
-                id: id,
-                _token: _token
-            };
-            $.post("https://syspex.cyou/device/invest", data, function (result) {
-                layer.close(loading);
-                switch (result.code) {
-                    case 200:
-                        layer.open({
-                            content: 'Sucesso',
-                            btn: 'OK',
-                            yes: function(index){
-                                location.href = "https://syspex.cyou/device/index";
-                            }
-                        });
-                        break;
-                    case 201:
-                        layer.open({
-                            content: 'Login Inválido',
-                            btn: 'OK',
-                            yes: function(index){
-                                location.href = "https://syspex.cyou/login/index?redirect=https%3A%2F%2Fsyspex.cyou%2Findex%2Findex";
-                            }
-                        });
-                        break;
-                    case 202:
-                        layer.open({
-                            content: 'Saldo insuficiente, por favor, recarregue... <br/> Sim'
-                            ,btn: ['Sim', 'Retornar']
-                            ,yes: function(index){
-                                location.href = "https://syspex.cyou/recharge/index";
-                            }
-                        });
-                        break;
-                    case 203:
-                        layer.open({
-                            content: result.msg
-                            ,btn: ['Sim', 'Retornar']
-                            ,yes: function(index){
-                                location.href = "https://syspex.cyou/notice/detail?id=1";
-                            }
-                        });
-                        break;
-                    default:
-                        layer.open({
-                            content: result.msg,
-                            btn: 'OK'
-                        });
-                }
-                
-                _submit = true;
-                return false;
-            }, "json");
-        } 
+    // Chama a função para verificar a autenticação ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkAuthentication();
     });
-        }else{
-             var _token = "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG";
-            var data = {
-                id: id,
-                _token: _token
-            }; 
-             $.post("https://syspex.cyou/device/invest", data, function (result) {
-            
-                switch (result.code) {
-                    case 200:
-                        layer.open({
-                            content: 'Sucesso',
-                            btn: 'OK',
-                            yes: function(index){
-                                location.href = "https://syspex.cyou/device/index";
-                            }
-                        });
-                        break;
-                    case 201:
-                        layer.open({
-                            content: 'Login Inválido',
-                            btn: 'OK',
-                            yes: function(index){
-                                location.href = "https://syspex.cyou/login/index?redirect=https%3A%2F%2Fsyspex.cyou%2Findex%2Findex";
-                            }
-                        });
-                        break;
-                    case 202:
-                        layer.open({
-                            content: 'Saldo insuficiente, por favor, recarregue... <br/> Sim'
-                            ,btn: ['Sim', 'Retornar']
-                            ,yes: function(index){
-                                location.href = "https://syspex.cyou/recharge/index";
-                            }
-                        });
-                        break;
-                    case 203:
-                        layer.open({
-                            content: result.msg
-                            ,btn: ['Sim', 'Retornar']
-                            ,yes: function(index){
-                                location.href = "https://syspex.cyou/notice/detail?id=1";
-                            }
-                        });
-                        break;
-                    default:
-                        layer.open({
-                            content: result.msg,
-                            btn: 'OK'
-                        });
-                }
-                
-                _submit = true;
-                return false;
-            }, "json");
-        }
-
-}
- function sign_in() {
-                var loading = layer.open({
-                    type: 2
-                    ,content: 'loading...'
-                });
-
-            var _token = "umgmSxR5elsFZBLbPgk5jkqtlFnWStLrpayEJJcG";
-            var data = {
-                _token: _token
-            };
-         
-            $.post("https://syspex.cyou/index/sign_in", data, function (result) {
-                layer.close(loading);
-                switch (result.code) {
-                    case 200:
-                        layer.open({
-                            content: result.msg,
-                            btn: 'OK',
-                          
-                        });
-                        break;
-                    case 201:
-                        layer.open({
-                            content: result.msg,
-                            btn: 'OK',
-                        
-                        });
-                        break;
-                 
-                    default:
-                        layer.open({
-                            content: result.msg,
-                            btn: 'OK'
-                        });
-                }
-                
-                _submit = true;
-                return false;
-            }, "json");
-         
-}
 </script>
-
 </body></html>
