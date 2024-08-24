@@ -1,0 +1,172 @@
+<html class="pixel-ratio-3 retina android android-5 android-5-0 watch-active-state"><head>
+    <meta -equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta -equiv="pragma" content="no-cache">
+    <meta -equiv="cache-control" content="no-cache">
+    <meta -equiv="expires" content="0">
+    <title>Syspex</title>
+    <link rel="stylesheet" href="/static/home/css/app.css?v=5.8">
+    <script type="text/javascript" src="/static/home/js/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="text/javascript" src="/static/home/js/clipboard.min.js"></script><style type="text/css" id="operaUserStyle"></style>
+    <script type="text/javascript" src="/static/home/js/layer.js"></script><link href="https://syspex.cyou/static/home/js/need/layer.css?2.0" type="text/css" rel="styleSheet" id="layermcss">
+    <script type="text/javascript" src="/static/home/js/qrcode.min.js"></script>
+    <style type="text/css">
+        body{
+				/*background: linear-gradient(90deg, #ff9700, #ff6300);*/
+				background-color:  #00A398;
+				margin: 0;
+				padding: 0;
+			}
+			.share_code{
+	display: flex;
+	flex-direction: row;
+	margin-top: 10px;
+}
+.share_code .code_left{
+	width: 80%;
+	overflow: hidden; /* 文字超出容器隐藏 */
+        white-space: nowrap; 
+        text-overflow: ellipsis;
+}
+.share_code .code_r{
+	width: 50%;
+	text-align: right;
+}
+.share_mian > div {
+    margin-bottom: 10px; /* 设置每个 <div> 元素之间的下边距为10像素 */
+}
+    </style>
+
+</head>
+<body>
+<div class="share_mian">
+<div class="share_title" style="text-align: center;">Meu Código QR</div>
+<div class="share_code_img" id="share_code_img">
+    <div class="canvas" id="canvas" title="https://syspex.cyou/login/register?inviteCode=78eb90db">
+        
+    <canvas width="200" height="200" style="display: none;"></canvas><img src="data:image/png;base64,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" style="display: block;"></div>
+</div>
+</div>
+<div class="share_mian">
+    <div class="share_title">Meu Código de Convite</div>
+    <div class="share_code">
+        <div class="code_left"><b>https://syspex.cyou/login/register?inviteCode=78eb90db</b></div>
+        <div class="code_r"><a style="background: #00A398" href="javascript:void(0);" id="copyLink" data-clipboard-target="#copyLink" data-clipboard-action="copy" data-clipboard-text="https://syspex.cyou/login/register?inviteCode=78eb90db">Copiar Link</a></div>
+    </div>
+</div>
+<div class="share_mian">
+    <div style="font-size:20px">Regras de recompensa de investimento da equipe:</div>
+    <div>Subordinados de nível 1 investem e recebem 40% de cashback</div>
+    <div>Subordinados de nível 2 investem e recebem 1% de cashback</div>
+    <div>Subordinados de nível 3 investem e recebem 1% em dinheiro de volta</div>
+    <div>Os bônus em dinheiro de volta são automaticamente adicionados aos saldos das contas depois que os subordinados investem em equipamentos</div>
+    <!--<p><span style="font-family: Calibri; font-size: 14px;"></span></p><p style=";text-align:justify;text-justify:inter-ideograph"><span style="font-size: 14px; font-family: 宋体;"></span></p><p><span style="text-wrap: nowrap;"></span></p><p><span style="text-wrap: nowrap;">Taxa de reembolso do investimento em convite:</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Recompensa de reembolso por convidar subordinados de primeiro nível para investir: 10%.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Recompensa de reembolso por convidar subordinados de segundo nível para investir: 4%.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Recompensa de reembolso por convidar subordinados de terceiro nível para investir: 1%.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Se você convidar o Investidor A para investir com sucesso, receberá uma recompensa de reembolso de 10% do investimento total do Investidor A.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Se A convidar B para investir com sucesso, você receberá uma recompensa de reembolso de 4% do investimento total do investidor B.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Se B convidar C para investir com sucesso, você receberá uma recompensa de reembolso de 1% do investimento total do investidor C.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">A proporção de recompensa de comissão é: 12% para o nível um, 2% para o nível dois e 1% para o nível três.</span></p><p><span style="text-wrap: nowrap;"><br/></span></p><p><span style="text-wrap: nowrap;">Quando seus subordinados recebem benefícios de equipamento, as recompensas de comissão serão automaticamente distribuídas em sua conta.</span></p><p><span style="text-wrap: nowrap;"><br/></span><br/></p><p><span style="text-wrap: nowrap;">&nbsp;&nbsp;</span></p>-->
+</div>
+
+
+<div style="height: 70px;"></div>
+<style>
+    .game1
+    {
+        border-radius: 50%;
+        animation: rotate1 2s linear infinite;
+    }
+    @keyframes  rotate1{
+	0%{
+		transform: rotateZ(0deg);
+		
+	}
+	100%{
+		transform: rotateZ(360deg);
+	}
+}
+</style>
+<footer>
+     <div class="foot_bo">
+        <a href="/index.html">
+            <img src="/static/home/img/no1.png">
+            <p>Início</p>
+        </a>
+    </div>
+
+    <div class="foot_bo">
+        <a href="https://syspex.cyou/device/index">
+            <img src="/static/home/img/no2.png">
+            <p>Ganhos</p>
+        </a>
+    </div>
+
+<!--<div class="foot_bo">-->
+<!--    <a href="https://syspex.cyou/task/dayindex">-->
+<!--        <img src="/static/home/img/gift02.png" width="40px" class="game1"/>-->
+<!--        <p>Bónus</p>-->
+<!--    </a>-->
+<!--</div>-->
+
+<!---->
+<!--<div class="foot_bo">-->
+<!--    <a href="https://syspex.cyou/game/index">-->
+<!--        <img src="/static/home/img/ico_zp.png" class="game1"/>-->
+<!--        <p>Jogo</p>-->
+<!--    </a>-->
+<!--</div>-->
+<!---->
+
+    <div class="foot_bo">
+        <a href="#">
+            <img src="/static/home/img/no3.png">
+            <p class="xz" style="color: #00A398;">Compartilhar</p>
+        </a>
+    </div>
+
+    <!---->
+    <!--    <div class="foot_bo">-->
+    <!--        <a href="https://syspex.cyou/redpacket/index">-->
+    <!--            <img src="/static/home/img/hb3.png"/>-->
+    <!--            <p>Reward</p>-->
+    <!--        </a>-->
+    <!--    </div>-->
+    <!---->
+    <div class="foot_bo">
+        <a href="/meusdados.html">
+            <img src="/static/home/img/no4.png">
+            <p>Meu</p>
+        </a>
+    </div>
+
+</footer>
+<script type="text/javascript">
+    var clipboard = new ClipboardJS('#copyLink');
+    clipboard.on('success', function (e) {
+        e.clearSelection();
+        layer.open({
+            content: 'Copiado com êxito'
+            ,skin: 'msg'
+            ,time: 2 
+          });
+    });
+
+    clipboard.on('error', function (e) {
+        layer.open({
+            content: 'Falha na cópia'
+            ,skin: 'msg'
+            ,time: 2 
+          });
+    });
+    
+    function makeCode () {
+        var qrcode = new QRCode(document.getElementById("canvas"), {
+        	width : 200,
+        	height : 200
+        });
+    	var elText = $("#copyLink").attr("data-clipboard-text");
+    	console.log(elText);
+    	qrcode.makeCode(elText);
+    }
+    makeCode();
+</script>
+</body></html>
